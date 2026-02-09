@@ -1,0 +1,60 @@
+<audio #bgMusic [src]="musicUrl" loop preload="auto"></audio>
+@if (!saidYes) {
+  <div class="page intro-page">
+    <div class="intro-bg">
+      <div class="intro-orb intro-orb-1"></div>
+      <div class="intro-orb intro-orb-2"></div>
+      <div class="intro-orb intro-orb-3"></div>
+    </div>
+    <p class="greeting">Hello My Dear Princess, My Sunshine, My Love, My Baby, My Sweet Heart, My Babudya, My Shona 💕</p>
+    <h1>Will you be my Valentine till the end of my life?</h1>
+    <p class="message">I will keep you happy in every moment of life.</p>
+    <p class="ask">Will you?</p>
+    <div class="buttons">
+      <button type="button" class="btn btn-yes" (click)="onYes()">Yes Baby</button>
+      <button type="button" class="btn btn-no"
+        [class.btn-no-runaway]="noClickCount >= noMessages.length"
+        [style.left.%]="noClickCount >= noMessages.length ? noButtonLeft : null"
+        [style.top.%]="noClickCount >= noMessages.length ? noButtonTop : null"
+        (mouseenter)="moveNoButton()"
+        (click)="onNo()">No</button>
+    </div>
+    @if (noClickCount > 0) {
+      <p class="no-message">{{ currentNoMessage }}</p>
+    }
+  </div>
+} @else {
+  <div class="page yes-page">
+    <video #bgVideo class="bg-video" playsinline muted loop [src]="heartVideoUrl"></video>
+    <div class="bg-animation bg-video-overlay">
+      <div class="hearts">
+        @for (i of heartCount; track i) {
+          <span class="heart" [style.--i]="i" [style.--size]="getHeartSize(i)">♥</span>
+        }
+      </div>
+      <div class="gradient-orb gradient-orb-1"></div>
+      <div class="gradient-orb gradient-orb-2"></div>
+      <div class="gradient-orb gradient-orb-3"></div>
+    </div>
+    <div class="yes-content">
+      <p class="yes-title">YES , I knew it Baby !!!!</p>
+      <p class="yes-line">You are my today 🌅,</p>
+      <p class="yes-line">my tomorrow 🌸,</p>
+      <p class="yes-line">and every version of forever in between ♾️💞</p>
+      <p class="yes-line yes-spacer">Thank you for choosing me 🤍,</p>
+      <p class="yes-line">for standing beside me through everything 🤝,</p>
+      <p class="yes-line">for believing in me 🌟,</p>
+      <p class="yes-line">and for turning my ordinary days</p>
+      <p class="yes-line">into moments filled with love, warmth, and meaning ✨</p>
+      <p class="yes-line yes-spacer">With you, life feels lighter ☁️,</p>
+      <p class="yes-line">warmer 🌷,</p>
+      <p class="yes-line">calmer 🕊️,</p>
+      <p class="yes-line">and more beautiful than I ever imagined 💫</p>
+      <p class="yes-line yes-spacer">You don't just make my life happy —</p>
+      <p class="yes-line">you make it feel like heaven 🌈❤️</p>
+      <p class="yes-line yes-spacer">I promise effort 💪, respect 🤍, and love 💖 —</p>
+      <p class="yes-line">not just on good days ☀️,</p>
+      <p class="yes-line">but every single day 🌙✨</p>
+    </div>
+  </div>
+}

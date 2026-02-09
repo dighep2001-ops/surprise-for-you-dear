@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "name": "surprise-for-you-dear",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/valentine-love/browser",
+  "framework": null,
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
