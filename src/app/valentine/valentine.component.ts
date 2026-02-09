@@ -51,10 +51,34 @@ export class ValentineComponent {
   }
 
   /** After 5th message, move No button away when she hovers so she can't click it */
-  moveNoButton(): void {
+  moveNoButton(event?: MouseEvent): void {
     if (this.noClickCount < this.noMessages.length) return;
-    this.noButtonLeft = 10 + Math.random() * 75;
-    this.noButtonTop = 10 + Math.random() * 75;
+    const min = 5;
+    const max = 95;
+    let left: number;
+    let top: number;
+    // Pick a random position anywhere on the full screen (entire viewport)
+    left = min + Math.random() * (max - min);
+    top = min + Math.random() * (max - min);
+    // If we have cursor position, avoid placing right under it (min 20% away)
+    if (event && typeof window !== 'undefined') {
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const cursorXPercent = (event.clientX / vw) * 100;
+      const cursorYPercent = (event.clientY / vh) * 100;
+      const margin = 20;
+      let tries = 0;
+      while (
+        Math.abs(left - cursorXPercent) < margin &&
+        Math.abs(top - cursorYPercent) < margin &&
+        tries++ < 15
+      ) {
+        left = min + Math.random() * (max - min);
+        top = min + Math.random() * (max - min);
+      }
+    }
+    this.noButtonLeft = left;
+    this.noButtonTop = top;
   }
 
   onYes(): void {

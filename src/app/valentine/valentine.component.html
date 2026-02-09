@@ -12,13 +12,17 @@
     <p class="ask">Will you?</p>
     <div class="buttons">
       <button type="button" class="btn btn-yes" (click)="onYes()">Yes Baby</button>
-      <button type="button" class="btn btn-no"
-        [class.btn-no-runaway]="noClickCount >= noMessages.length"
-        [style.left.%]="noClickCount >= noMessages.length ? noButtonLeft : null"
-        [style.top.%]="noClickCount >= noMessages.length ? noButtonTop : null"
-        (mouseenter)="moveNoButton()"
-        (click)="onNo()">No</button>
+      @if (noClickCount < noMessages.length) {
+        <button type="button" class="btn btn-no" (click)="onNo()">No</button>
+      }
     </div>
+    @if (noClickCount >= noMessages.length) {
+      <button type="button" class="btn btn-no btn-no-runaway"
+        [style.left.%]="noButtonLeft"
+        [style.top.%]="noButtonTop"
+        (mouseenter)="moveNoButton($event)"
+        (click)="onNo()">No</button>
+    }
     @if (noClickCount > 0) {
       <p class="no-message">{{ currentNoMessage }}</p>
     }
