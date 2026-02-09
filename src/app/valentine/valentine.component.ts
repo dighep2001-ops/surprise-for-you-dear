@@ -21,7 +21,7 @@ export class ValentineComponent {
     'Are you really sure? 🤭💕',
     'Your heart already said yes 💖💫',
     "Don't make me ask again 😌🌸",
-    'Okay… now press YES 😉❤️🔥'
+    'Okay.... As your wish 😉❤️🔥'
   ];
   heartCount = Array.from({ length: 96 }, (_, i) => i);
 
