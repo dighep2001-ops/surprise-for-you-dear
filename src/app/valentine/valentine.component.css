@@ -1,3 +1,10 @@
+/* When Yes is shown: lock to viewport so no body scrollbar (no double scrollbar) */
+:host.valentine-host.said-yes {
+  display: block;
+  height: 100vh;
+  overflow: hidden;
+}
+
 .page {
   min-height: 100vh;
   display: flex;
@@ -265,9 +272,11 @@ h1 {
   }
 }
 
-/* Yes response page - single screen, no page scroll */
+/* Yes response page - static, no scrollbars, all content fits */
 .yes-page {
   position: relative;
+  box-sizing: border-box;
+  padding: clamp(0.4rem, 1.5vh, 0.75rem) 1rem;
   overflow: hidden;
   height: 100vh;
   min-height: 100vh;
@@ -296,9 +305,9 @@ h1 {
 .bg-animation.bg-video-overlay {
   background: linear-gradient(
     180deg,
-    rgba(0, 0, 0, 0.2) 0%,
-    rgba(0, 0, 0, 0.35) 50%,
-    rgba(0, 0, 0, 0.4) 100%
+    rgba(0, 0, 0, 0.25) 0%,
+    rgba(0, 0, 0, 0.4) 40%,
+    rgba(0, 0, 0, 0.45) 100%
   );
 }
 
@@ -517,29 +526,43 @@ h1 {
 .yes-content {
   position: relative;
   z-index: 1;
-  width: min(42rem, 92vw);
-  max-width: min(42rem, 92vw);
-  padding: clamp(0.5rem, 2vh, 1rem) 1.25rem;
+  width: min(48rem, 96vw);
+  max-width: min(48rem, 96vw);
+  padding: clamp(0.5rem, 2vh, 0.8rem) clamp(1rem, 3vw, 1.4rem);
   max-height: 100%;
-  overflow: hidden;
   animation: contentFadeIn 1.2s ease-out;
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: clamp(1.15rem, 3.2vh, 1.7rem);
+  font-size: clamp(1rem, 2.7vh, 1.55rem);
   font-weight: 500;
-  letter-spacing: 0.02em;
-  line-height: 1.55;
-  color: #ffb6c1;
+  letter-spacing: 0.03em;
+  line-height: 1.3;
+  color: #ffd4dc;
   text-shadow:
-    0 0 4px rgba(0, 0, 0, 0.9),
-    0 0 8px rgba(0, 0, 0, 0.7),
-    0 1px 4px rgba(0, 0, 0, 0.8),
-    0 2px 8px rgba(0, 0, 0, 0.5);
+    0 0 6px rgba(0, 0, 0, 0.85),
+    0 0 12px rgba(0, 0, 0, 0.5),
+    0 1px 3px rgba(0, 0, 0, 0.9),
+    0 2px 6px rgba(0, 0, 0, 0.6);
+  /* Soft card: frosted glass feel */
+  background: linear-gradient(
+    145deg,
+    rgba(255, 182, 193, 0.08) 0%,
+    rgba(180, 80, 120, 0.1) 50%,
+    rgba(255, 182, 193, 0.06) 100%
+  );
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 182, 193, 0.18);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.45),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+    0 4px 24px rgba(233, 30, 99, 0.1);
 }
 
 @keyframes contentFadeIn {
   from {
     opacity: 0;
-    transform: scale(0.92) translateY(20px);
+    transform: scale(0.96) translateY(16px);
   }
   to {
     opacity: 1;
@@ -549,28 +572,33 @@ h1 {
 
 .yes-title {
   font-family: 'Great Vibes', cursive;
-  font-size: clamp(2.2rem, 6vw, 3.5rem);
+  font-size: clamp(1.9rem, 5.8vw, 3rem);
   font-weight: 400;
-  margin: 0 0 0.35em;
-  letter-spacing: 0.02em;
-  color: #ffc0cb;
+  margin: 0 0 0.15em;
+  letter-spacing: 0.04em;
+  color: #ffb8c4;
   text-shadow:
-    0 0 6px rgba(0, 0, 0, 0.85),
-    0 0 12px rgba(255, 182, 193, 0.25),
-    0 2px 6px rgba(0, 0, 0, 0.7);
-  animation: lineIn 0.6s ease-out 0.2s both;
+    0 0 8px rgba(0, 0, 0, 0.8),
+    0 0 20px rgba(255, 182, 193, 0.35),
+    0 2px 8px rgba(0, 0, 0, 0.7);
+  animation: lineIn 0.6s ease-out 0.2s both, titleGlow 4s ease-in-out 1.5s infinite;
+}
+
+@keyframes titleGlow {
+  0%, 100% { text-shadow: 0 0 8px rgba(0,0,0,0.8), 0 0 20px rgba(255,182,193,0.35), 0 2px 8px rgba(0,0,0,0.7); }
+  50% { text-shadow: 0 0 10px rgba(0,0,0,0.75), 0 0 28px rgba(255,182,193,0.45), 0 2px 10px rgba(0,0,0,0.65); }
 }
 
 .yes-line {
   font-size: 1em;
-  line-height: 1.5;
-  margin: 0 0 0.08em;
-  opacity: 0.97;
+  line-height: 1.26;
+  margin: 0;
+  opacity: 0.98;
   animation: lineIn 0.5s ease-out both;
 }
 
 .yes-line.yes-spacer {
-  margin-top: 0.45em;
+  margin-top: 0.12em;
 }
 
 .yes-content .yes-line:nth-child(2) { animation-delay: 0.3s; }

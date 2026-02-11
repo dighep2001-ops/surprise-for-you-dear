@@ -6,7 +6,8 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
   standalone: true,
   imports: [],
   templateUrl: './valentine.component.html',
-  styleUrl: './valentine.component.css'
+  styleUrl: './valentine.component.css',
+  host: { class: 'valentine-host', '[class.said-yes]': 'saidYes' }
 })
 export class ValentineComponent {
   @ViewChild('bgMusic') bgMusic!: ElementRef<HTMLAudioElement>;
@@ -82,10 +83,11 @@ export class ValentineComponent {
   }
 
   onYes(): void {
-    this.saidYes = true;
+    // Play audio immediately while still in the user gesture (click) so browsers allow it
     const audio = this.bgMusic?.nativeElement;
     if (audio) {
       audio.volume = 0.8;
+      audio.muted = false;
       const p = audio.play();
       if (p !== undefined) {
         p.catch(() => {
@@ -94,6 +96,7 @@ export class ValentineComponent {
         });
       }
     }
+    this.saidYes = true;
     // Start background video after view updates
     setTimeout(() => this.bgVideo?.nativeElement?.play(), 50);
   }
